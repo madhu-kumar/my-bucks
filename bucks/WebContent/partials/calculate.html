@@ -1,0 +1,228 @@
+<h3 class="text-primary">Take Home Salary Calculator</h3>
+<br>
+<h4 class=".text-info">Just enter ctc and click on calculate</h4>
+<br>
+<div class="col-md-6 col-xs-12">
+
+	<ul class="nav nav-tabs nav-justified">
+		<li class="active"><a data-toggle="tab" href="#home">Basic</a></li>
+		<li><a data-toggle="tab" href="#menu1">Retirals</a></li>
+		<li><a data-toggle="tab" href="#menu2">FBP</a></li>
+		<li><a data-toggle="tab" href="#menu3">Advanced</a></li>
+	</ul>
+	<div class="tab-content">
+
+		<div id="home" class="tab-pane fade in active">
+
+			<form class="form" role="form">
+
+				<div class="form-group">
+					<label>CTC</label> <input type="text" class="form-control"
+						ng-model="student.ctc" placeholder="CTC">
+				</div>
+
+				<div class="form-group" style="display: block;"
+					ng-init="student.basicpercent=30">
+					<label>Basic is :</label> <label> <input type="radio"
+						ng-model="student.basicpercent" value="30"> 30% Of CTC
+					</label> <label> <input type="radio"
+						ng-model="student.basicpercent" value="40"> 40% Of CTC
+					</label> <label> <input type="radio"
+						ng-model="student.basicpercent" value="50"> 50% Of CTC
+					</label> <label> <input type="radio"
+						ng-model="student.basicpercent" value="1"> Other
+					</label>
+
+				</div>
+
+				<div class="form-group">
+					<label>Monthly Basic :</label><span
+						style="display: {{student.showbasic2()}}">{{student.basic2()}}</span>
+					<input type="text" class="form-control" ng-model="student.basic"
+						placeholder="Basic" style="display: {{student.showbasic()}}">
+				</div>
+
+				<div class="form-group" style="">
+					<label>Variable Pay in %</label> <input type="text"
+						class="form-control" ng-model="student.variable"
+						placeholder="Leave blank if not applicable">
+				</div>
+
+				<div class="checkbox">
+					<label style="font-weight: bold;"><input
+						ng-model="student.metro" type="checkbox">Metro</label>
+					<div class="text-info">if Delhi, Chennai , Mumbai or Kolkata
+						is your current residence mark it</div>
+				</div>
+
+			</form>
+		</div>
+
+
+		<div id="menu1" class="tab-pane fade">
+
+			<form class="form" role="form">
+
+
+				<div class="form-group">
+					<label>PF </label> <input type="text" class="form-control"
+						ng-model="student.pf" placeholder="PF">
+				</div>
+
+				<div class="form-group">
+					<label>EPF </label> <input type="text" class="form-control"
+						ng-model="student.epf" placeholder="EPF">
+				</div>
+				<div class="form-group">
+					<label>Gratuity </label> <input type="text" class="form-control"
+						ng-model="student.gratuity" placeholder="Gratuity">
+				</div>
+
+			</form>
+
+		</div>
+
+		<div id="menu2" class="tab-pane fade">
+
+			<form class="form" role="form">
+
+				<div class="form-group">
+					<label>HRA </label> <input type="text" class="form-control"
+						ng-model="student.hra" placeholder="HRA">
+				</div>
+				<div class="form-group">
+					<label>Conveyance </label> <input type="text" class="form-control"
+						ng-model="student.conveyance" placeholder="Conveyance">
+				</div>
+				<div class="form-group">
+					<label>Professional Tax </label> <input type="text"
+						class="form-control" ng-model="student.profesionaltax"
+						placeholder="Professional Tax">
+				</div>
+				<div class="form-group">
+					<label>Food Vouchers</label> <input type="text"
+						class="form-control" ng-model="student.foodvouchers"
+						ng-init="student.foodvouchers=0" placeholder="Food Vouchers">
+				</div>
+				<div class="form-group">
+					<label>LTA</label> <input type="text" class="form-control"
+						ng-init="student.lta=0" ng-model="student.lta" placeholder="LTA">
+				</div>
+				<div class="form-group">
+					<label>Medical Bills</label> <input type="text"
+						class="form-control" ng-model="student.mecialbills"
+						ng-init="student.mecialbills=0" placeholder="Max Limit 15,000">
+				</div>
+
+			</form>
+
+		</div>
+		<div id="menu3" class="tab-pane fade">
+
+			<form class="form" role="form">
+
+				<div class="form-group">
+					<label>80C, 80CCC, 80CCD</label> <input type="text"
+						class="form-control" ng-model="student.houseloan"
+						ng-init="student.houseloan=0" placeholder="Max Limit 150,000">
+				</div>
+				<div class="form-group">
+					<label>Other 100% tax free</label> <input type="text"
+						class="form-control" ng-model="student.other100"
+						ng-init="student.other100=0" placeholder="Other 100% tax free">
+				</div>
+				<div class="form-group">
+					<label>Deductions</label> <input type="text" class="form-control"
+						ng-model="student.deductions" ng-init="student.deductions=0"
+						placeholder="deduction">
+				</div>
+
+				<div class="form-group">
+					<label>Taxable Income :{{student.taxableincome | number:0}}</label>
+				</div>
+
+			</form>
+
+		</div>
+
+		
+
+
+
+
+
+
+
+	</div>
+	
+	<form class="form" role="form">
+			<div class="form-group">
+				<button type="button" class="btn btn-primary btn-block"
+					ng-click="student.calculateTakeHome()">Calculate</button>
+			</div>
+		</form>
+	
+	</div>
+
+	<div class="col-md-6 col-xs-12">
+		<table class="table table-striped table-bordered table-hover "
+			ng-init="student.display='none'" style="display: {{student.display}}">
+			<thead>
+				<tr>
+					<th>Component</th>
+					<th>Yearly</th>
+					<th>Monthly</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>CTC</td>
+					<td>{{student.ctc | number:0}}</td>
+					<td>{{student.monthlyctc | number:0}}</td>
+				</tr>
+				<tr>
+					<td>EPF</td>
+					<td>{{student.epf | number:0}}</td>
+					<td>{{(student.epf/12) | number:0}}</td>
+				</tr>
+				<tr>
+					<td>Gratuity</td>
+					<td>{{student.gratuity | number:0}}</td>
+					<td>{{(student.gratuity/12) | number:0}}</td>
+				</tr>
+				<tr>
+					<td>Gross Salary</td>
+					<td>{{student.yearlygross | number:0}}</td>
+					<td>{{student.monthlygross | number:0}}</td>
+				</tr>
+				<tr>
+					<td>PF</td>
+					<td>{{student.pf | number:0}}</td>
+					<td>{{(student.pf/12) | number:0}}</td>
+				</tr>
+
+				<tr>
+					<td>Profesional Tax</td>
+					<td>2400</td>
+					<td>200</td>
+				</tr>
+				<tr class="warning">
+					<td>Tax</td>
+					<td>{{student.yearlytax | number:2}}</td>
+					<td>{{student.monthlytax | number:2}}</td>
+				</tr>
+				<tr>
+					<td>Deductions</td>
+					<td>{{student.deductions | number:2}}</td>
+					<td>{{(student.deductions/12) | number:2}}</td>
+				</tr>
+				<tr class="success">
+					<td>Take Home</td>
+					<td>{{student.takehomemyearly | number:2}}</td>
+					<td>{{student.takehomemonthly | number:2}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
