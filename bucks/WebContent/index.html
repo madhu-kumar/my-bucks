@@ -8,17 +8,18 @@
 <meta name="description"
 	content="Take home salary calculator helps you calculate the tax deductions and final salary what you receive after all deductions.">
 <meta name="keywords"
-	content="Take Home Salary Calculator,CTC VS Take Home Salary Calculator India,In Hand Salary Calculator India,Net Salary Calculator,Salary Calculator,Tax Calculator,2016,india,gross salary,salary tax calculator,monthly salary calculator india,final salary calculator,wage calculator,tax deduction calculator">
+	content="Take Home Salary Calculator,CTC VS Take Home Salary Calculator India,In Hand Salary Calculator India,Net Salary Calculator,Salary Calculator,Tax Calculator,2016,india,gross salary,salary tax calculator,monthly salary calculator india,final salary calculator,wage calculator,tax deduction calculator,Excel,Tax">
+<meta name="google-site-verification" content="KHSw1VGocwUEb5NQwucdc8_7xPLhAM2qrJPh61ldqBo" />
+ <base href="/index.html" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-	 <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+<script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
 <script
 	src=" https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+<base href="/" />
 <script>
 	(function(i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
@@ -100,7 +101,7 @@ body, html {
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#calculate">Calculate</a></li>
+					<li class="active"><a href="#take-home-salary-calculator-india-2016">Calculate</a></li>
 					<li><a href="#blog">Blog</a></li>
 					<li><a href="#feedback">Feedback</a></li>
 					<li><a href="#contactus">Contact</a></li>
@@ -128,12 +129,12 @@ body, html {
 
 			<div class="col-sm-9 text-left maincontent"  style="min-height:100%">
 				<div ng-app="mainApp" ng-controller="studentController"  style=" height:100%" ng-view>
-				
+
 				</div>
 			</div>
-			
 
-			 
+
+
 			<div class="col-sm-2 sidenav">
 				<!-- <div class="well">
 					<p></p>
@@ -155,44 +156,48 @@ body, html {
 	<!--<h2>Under Construction...</h2>-->
 
 	<script>
-	
+
  var mainApp = angular.module("mainApp", ['ngRoute']);
 
-  mainApp.config(['$routeProvider', function($routeProvider) {
-            $routeProvider.            
-            when('/calculate take home salary india 2016', {
+  mainApp.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
+
+	  $locationProvider.html5Mode(true);
+	  $routeProvider.
+            when('/take-home-salary-calculator-india-2016', {
                templateUrl: 'partials/calculate.html',
                controller: 'studentController'
             }).
-			
+
 			when('/blog', {
                templateUrl: 'partials/blog.html',
                controller: 'studentController'
             }).
-            
+
             when('/feedback', {
                templateUrl: 'partials/feedback.html',
                controller: 'studentController'
             }).
-			
+
 			when('/contactus', {
                templateUrl: 'partials/contactus.html',
                controller: 'studentController'
             }).
-            
+
             otherwise({
-               redirectTo: '/calculate take home salary india 2016'
-            }); 
+               redirectTo: '/take-home-salary-calculator-india-2016'
+            });
+
+
          }]);
-	
+
 
 
 		mainApp.controller('studentController',
 						function($scope) {
-							$scope.student = {
+							$scope.salary = {
 								showbasic : function() {
 
-									if ($scope.student.basicpercent == 1) {
+									if ($scope.salary.basicpercent == 1) {
 										return "";
 									} else {
 										return "none";
@@ -201,7 +206,7 @@ body, html {
 								},
 								showbasic2 : function() {
 
-									if ($scope.student.basicpercent == 1) {
+									if ($scope.salary.basicpercent == 1) {
 										return "none";
 									} else {
 										return "";
@@ -209,19 +214,20 @@ body, html {
 
 								},
 								basic2 : function() {
-									var studentObject = $scope.student;
+									var salaryObject = $scope.salary;
 									var basic = 0;
-									var ctc = $scope.student.ctc;
-									if (studentObject.ctc > 0) {
+									var ctc = $scope.salary.ctc;
+									if (salaryObject.ctc > 0) {
 
-										var basicpercenatge = studentObject.basicpercent;
+										var basicpercenatge = salaryObject.basicpercent;
 										basic = ((ctc / 100) * basicpercenatge) / 12;
+
 									}
 									return basic;
 								},
 								calculateTakeHome : function() {
-									var studentObject;
-									studentObject = $scope.student;
+									var salaryObject;
+									salaryObject = $scope.salary;
 									var basic = 0;
 									var epf = 0;
 									var gratuity = 0;
@@ -247,31 +253,31 @@ body, html {
 									var other100=0;
 									var deductions=0;
 
-									if (studentObject.ctc > 0) {
-										ctc = studentObject.ctc;
+									if (salaryObject.ctc > 0) {
+										ctc = salaryObject.ctc;
 										monthlyctc = ctc / 12;
-										if (studentObject.variable > 0) {
+										if (salaryObject.variable > 0) {
 											variablepay = (ctc / 100)
-													* studentObject.variable;
+													* salaryObject.variable;
 											ctc = ctc - variablepay;
 										}
 
-										foodvouchers=parseInt(studentObject.foodvouchers);
-										lta=parseInt(studentObject.lta);
-										mecialbills=parseInt(studentObject.mecialbills);
-										houseloan=parseInt(studentObject.houseloan);
-										other100=parseInt(studentObject.other100);
+										foodvouchers=parseInt(salaryObject.foodvouchers);
+										lta=parseInt(salaryObject.lta);
+										mecialbills=parseInt(salaryObject.mecialbills);
+										houseloan=parseInt(salaryObject.houseloan);
+										other100=parseInt(salaryObject.other100);
 
-										deductions=parseInt(studentObject.deductions);
+										deductions=parseInt(salaryObject.deductions);
 										deductions=deductions+foodvouchers;
 
-										basicpercenatge = studentObject.basicpercent;
+										basicpercenatge = salaryObject.basicpercent;
 										basic = ((ctc / 100) * basicpercenatge) / 12;
 
 										epf = basic * 12 / 100;
 										gratuity = basic * 4.81 / 100;
 										conveyance = 19200;
-										if (studentObject.metro) {
+										if (salaryObject.metro) {
 											hra = (basic / 100) * 50;
 										} else {
 											hra = (basic / 100) * 40;
@@ -318,26 +324,26 @@ body, html {
 
 									}
 
-									$scope.student.display = display;
-									$scope.student.monthlyctc = monthlyctc;
-									$scope.student.taxableincome = taxableincome;
-									$scope.student.hra = hra * 12;
-									$scope.student.pf = epf * 12;
-									$scope.student.epf = epf * 12;
-									$scope.student.gratuity = gratuity * 12;
-									$scope.student.basic = basic;
+									$scope.salary.display = display;
+									$scope.salary.monthlyctc = monthlyctc;
+									$scope.salary.taxableincome = taxableincome;
+									$scope.salary.hra = hra * 12;
+									$scope.salary.pf = epf * 12;
+									$scope.salary.epf = epf * 12;
+									$scope.salary.gratuity = gratuity * 12;
+									$scope.salary.basic = basic;
 
-									$scope.student.conveyance = conveyance;
-									$scope.student.profesionaltax = profesionlatax * 12;
+									$scope.salary.conveyance = conveyance;
+									$scope.salary.profesionaltax = profesionlatax * 12;
 
-									$scope.student.yearlygross = yearlygross;
-									$scope.student.monthlygross = monthlygross;
+									$scope.salary.yearlygross = yearlygross;
+									$scope.salary.monthlygross = monthlygross;
 
-									$scope.student.monthlytax = monthlytax;
-									$scope.student.yearlytax = yearlytax;
+									$scope.salary.monthlytax = monthlytax;
+									$scope.salary.yearlytax = yearlytax;
 
-									$scope.student.takehomemyearly = takehomeyearly;
-									$scope.student.takehomemonthly = takehomemonthly;
+									$scope.salary.takehomemyearly = takehomeyearly;
+									$scope.salary.takehomemonthly = takehomemonthly;
 								}
 							};
 						});
